@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useContext, useReducer } from 'react'
 import './App.css'
-const NameContext: any = createContext({ name: null })
+const NameContext: any = createContext(null)
 interface Action {
 	type: string
 	name: string
