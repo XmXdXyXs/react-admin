@@ -1,23 +1,18 @@
-import { useRoutes, Link, Navigate } from 'react-router-dom'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useRoutes } from 'react-router-dom'
 import App from './App.tsx'
 
-export function RouterComponentReact() {
-	return <div>欢迎学习react{<Link to='/'>back</Link>}</div>
-}
-
-export function RouterComponentVite() {
-	return <div>欢迎学习vite</div>
-}
-
-export function RouterComponentTest() {
+export function RouterComponentOrder() {
 	return (
 		<div>
-			重定向页面
-			<Navigate to='/react' />
+			<h1>商品列表</h1>
 		</div>
 	)
 }
-
+function createLoader({ params }: any) {
+	console.log(params.id)
+	return {}
+}
 export function RouterComponentFound() {
 	return <div>404</div>
 }
@@ -28,16 +23,9 @@ function Router() {
 			element: <App />
 		},
 		{
-			path: '/react',
-			element: <RouterComponentReact />
-		},
-		{
-			path: '/vite',
-			element: <RouterComponentVite />
-		},
-		{
-			path: '/test',
-			element: <RouterComponentTest />
+			path: '/order/:id',
+			element: <RouterComponentOrder />,
+			loader: createLoader
 		},
 		{
 			path: '*',

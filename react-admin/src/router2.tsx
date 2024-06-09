@@ -1,19 +1,19 @@
-import { createBrowserRouter, Link, Navigate } from 'react-router-dom'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { createBrowserRouter, redirect, useLoaderData } from 'react-router-dom'
 import App from './App.tsx'
 
-export function RouterComponentReact() {
-	return <div>欢迎学习react{<Link to='/'>back</Link>}</div>
+interface Obj {
+	token?: string
+	user?: string
 }
-
-export function RouterComponentVite() {
-	return <div>欢迎学习vite</div>
-}
-
-export function RouterComponentTest() {
+export function RouterComponentOrder() {
+	const data: Obj = useLoaderData() as Obj
+	console.log(data)
 	return (
 		<div>
-			重定向页面
-			<Navigate to='/react' />
+			<h1>商品列表</h1>
+			<p>token: {data.token}</p>
+			<p>user: {data.user}</p>
 		</div>
 	)
 }
@@ -21,22 +21,39 @@ export function RouterComponentTest() {
 export function RouterComponentFound() {
 	return <div>404</div>
 }
+
+export function RouterComponentLogin() {
+	return <div>登录页面</div>
+}
+
+async function createLoader({ params }: any) {
+	console.log(params.id)
+	if (!localStorage.token) {
+		return redirect('/login')
+	}
+	let obj: Obj = {}
+	const data = await fetch('/mock/user.json').then(res => res.json())
+	if (data.code === '00000') {
+		obj = {
+			...data.data,
+			token: localStorage.token
+		}
+	}
+	return obj
+}
 const routes = createBrowserRouter([
 	{
 		path: '/',
 		element: <App />
 	},
 	{
-		path: '/react',
-		element: <RouterComponentReact />
+		path: '/order/:id',
+		element: <RouterComponentOrder />,
+		loader: createLoader
 	},
 	{
-		path: '/vite',
-		element: <RouterComponentVite />
-	},
-	{
-		path: '/test',
-		element: <RouterComponentTest />
+		path: '/login',
+		element: <RouterComponentLogin />
 	},
 	{
 		path: '*',
