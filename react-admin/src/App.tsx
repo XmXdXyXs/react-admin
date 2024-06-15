@@ -24,6 +24,11 @@ function App() {
 	const handleChild = useCallback(() => {
 		console.log('子组件点击事件')
 	}, [])
+
+	// 这里如果不用useCallback 缓存的话 会导致count值每次变化都会重新生成新的handleChild函数 导致Child组件会重新渲染影响性能
+	// const handleChild = () => {
+	// 	console.log('子组件点击事件')
+	// }
 	const handleCount = () => {
 		setCount(count => count + 1)
 	}
