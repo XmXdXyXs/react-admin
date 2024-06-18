@@ -29,7 +29,8 @@
 		}
 	},
 	"include": [
-		"src"
+		"src",
+		"typeings.d.ts"
 	],
 	"references": [
 		{
