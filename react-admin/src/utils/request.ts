@@ -42,7 +42,7 @@ instance.interceptors.response.use(
 		if (data.code == 500001) {
 			removeItem("token");
 			message.error(data.msg);
-			// location.href = "/login";
+			location.href = "/login";
 		} else if (data.code != 0) {
 			if (response.config.showError == false) {
 				return Promise.resolve(data);

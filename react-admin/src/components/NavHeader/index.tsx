@@ -3,6 +3,7 @@ import { Breadcrumb, Switch, Dropdown } from "antd";
 import type { MenuProps } from "antd";
 import { useStore } from "@/store";
 import styles from "./index.module.less";
+import { removeItem } from "@/utils/storage";
 const NavHeader = () => {
 	const { updateCollapsed, collapsed, userInfo } = useStore();
 	const breadList = [
@@ -15,16 +16,22 @@ const NavHeader = () => {
 	];
 	const items: MenuProps["items"] = [
 		{
-			key: "1",
+			key: "email",
 			label: `邮箱：${userInfo.userEmail}`,
 		},
 		{
-			key: "2",
+			key: "logout",
 			label: "退出",
 		},
 	];
 	const toggleCollapsed = () => {
 		updateCollapsed();
+	};
+	const onClick: MenuProps["onClick"] = ({ key }) => {
+		if (key === "logout") {
+			removeItem("token");
+			location.href = "/login";
+		}
 	};
 	return (
 		<div className={styles.navHeader}>
@@ -40,7 +47,7 @@ const NavHeader = () => {
 					unCheckedChildren="默认"
 					style={{ marginRight: 10 }}
 				/>
-				<Dropdown menu={{ items }} trigger={["click"]}>
+				<Dropdown menu={{ items, onClick }} trigger={["click"]}>
 					<span className={styles.nickName}>{userInfo.userName}</span>
 				</Dropdown>
 			</div>
