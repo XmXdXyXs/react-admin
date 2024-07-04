@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import { flushSync } from 'react-dom'
 
@@ -15,6 +15,10 @@ function App() {
 		}
 		return 'jay sun tnbl'
 	})
+	useEffect(() => {
+		console.log(count, 'count')
+	}, [count])
+
 	const handleUpdate = () => {
 		setName('jay sun nb')
 	}
@@ -26,27 +30,27 @@ function App() {
 	}
 	const handleCount = () => {
 		// react 更新属于异步更新 会把多次更新合并到一起 批量更新 每次只加1
-		// setCount(count + 1)
-		// setCount(count + 1)
-		// setCount(count + 1)
+		setCount(count + 1)
+		setCount(count + 1)
+		setCount(count + 1)
 		// 跟上面没区别了 这里依旧是异步更新 在react16之前是同步更新
 		// setTimeout(() => {
-		// setCount(count + 1)
-		// setCount(count + 1)
-		// setCount(count + 1)
+		// 	setCount(count + 1)
+		// 	setCount(count + 1)
+		// 	setCount(count + 1)
 		// })
 		// 这里也会批量更新 但是每次会拿到上次更新的值 所以执行一次加3
 		// setCount(count => count + 1)
 		// setCount(count => count + 1)
 		// setCount(count => count + 1)
-
+		// console.log(count, 'count')
 		// 强制同步更新 render 会执行两次
 		flushSync(() => {
 			setCount(count => count + 1)
 		})
-		flushSync(() => {
-			setCount(count => count + 1)
-		})
+		// flushSync(() => {
+		// 	setCount(count => count + 1)
+		// })
 	}
 	return (
 		<div className='App'>
