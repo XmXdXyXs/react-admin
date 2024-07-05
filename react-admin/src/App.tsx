@@ -1,20 +1,15 @@
-import { useState, useRef } from 'react'
+import { useDispatch } from 'react-redux'
 import './App.css'
+import User from './view/user'
+import { addUser } from './slice/userSlice'
 
 function App() {
-	const [val, setValue] = useState('')
-	const userRef = useRef<HTMLInputElement>(null)
-	const handleRef = () => {
-		console.log(userRef.current?.className)
-		setValue(userRef.current?.value || '')
-	}
+	const dispath = useDispatch()
 	return (
 		<>
-			<p>{val}</p>
-			<p>
-				<input ref={userRef} className='input' />
-				<button onClick={handleRef}>点击</button>
-			</p>
+			<User />
+			<hr />
+			<button onClick={() => dispath(addUser({ id: 111, name: 'lala' }))}>添加用户</button>
 		</>
 	)
 }
