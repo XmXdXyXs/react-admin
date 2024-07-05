@@ -8,7 +8,7 @@ interface Result<T = any> {
 }
 // 创建实例
 const instance = axios.create({
-	baseURL: 'http://127.0.0.1:8000/',
+	baseURL: '/api',
 	timeout: 8000,
 	timeoutErrorMessage: '请求超时， 请稍后再试',
 	withCredentials: true

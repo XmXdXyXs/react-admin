@@ -7,10 +7,12 @@ export default defineConfig({
 	plugins: [react()],
 	server: {
 		proxy: {
-			'/user': {
-				target: 'http://127.0.0.1:8000/',
-				changeOrigin: true
-				// 其他可能需要的配置
+			'/api': {
+				target: 'http://localhost:9000',
+				changeOrigin: true,
+				rewrite: path => {
+					return path.replace(/\/api/, '')
+				}
 			}
 		}
 	},

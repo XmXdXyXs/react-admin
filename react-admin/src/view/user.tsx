@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { StoreData } from '../store/index'
 const User = () => {
-	const users = useSelector((state: StoreData) => state.users)
+	const users = useSelector((state: StoreData) => state.users.users)
 	return (
 		<div>
 			<ul>
